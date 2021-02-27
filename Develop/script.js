@@ -18,14 +18,14 @@ function generatePassword() {
     // the amount of characters
     function getPasswordLength() {
         var passwordLength = parseInt(prompt("Choose a password length between 8 and 128 characters"));
-        console.log(passwordLength);
+
         if (passwordLength < 8) {
             alert("Please choose a number larger than 7");
-            return;
+            return false;
         };
         if (passwordLength > 128) {
             alert("Please choose a number smaller than 129");
-            return;
+            return false;
         };
         return passwordLength; 
     };
@@ -51,33 +51,34 @@ function generatePassword() {
     };
 
     var passwordLength = getPasswordLength();
+    console.log(passwordLength);
+    if (passwordLength === false) {
+        return ""
+    };
+
     var shouldUseSpecialCharacters = shouldUseRandomSymbols();
     var shouldUseLowerCase = shouldUseRandomLowercase();
     var shouldUseUpperCase = shouldUseRandomUppercase();
     var shouldUseNumbers = shouldUseRandomNumber();
 
-    var passwordCharacters = [];
-    var newPassword = "";
+    var passwordCharacters = "";
+    var password = "";
 
     if (shouldUseSpecialCharacters) {
-        passwordCharacters.push("!@#$%^&*(){}[]=<>/,.|~?")
-    } else if (shouldUseLowerCase) {
-        passwordCharacters.push("abcdefghijklmnopqrstuvwxyz")
-    } else if (shouldUseUpperCase) {
-        passwordCharacters.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    } else if (shouldUseNumbers) {
-        passwordCharacters.push("1234567890")
-    }
+        passwordCharacters += "!@#$%^&*(){}[]=<>/,.|~?"
+    } if (shouldUseLowerCase) {
+        passwordCharacters += "abcdefghijklmnopqrstuvwxyz"
+    } if (shouldUseUpperCase) {
+        passwordCharacters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    } if (shouldUseNumbers) {
+        passwordCharacters += "1234567890"
+    } 
 
-    console.log(passwordCharacters);
+    console.log(passwordCharacters)
 
-    for (let i = 0; i < newPassword.length; i++) {
-        newPassword += passwordCharacters.charAt[Math.floor(Math.random() * passwordLength)];
-    }
-    return newPassword;
+    for (let i = 0; i < passwordLength; i++) {
+        var randomCharacter = passwordCharacters.charAt(Math.floor(Math.random() * passwordCharacters.length));
+        password += randomCharacter;
+    };
+    return password
 };
-
-// need to make an object to store user inputs.
-// make the function run properly if the user hits cancel for some of the options.
-// be able to run the function when the user presses the generate button.
-// need to be able to see the generated password in the box.
